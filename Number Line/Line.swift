@@ -15,7 +15,9 @@ class Line: UIView {
     var j = 0
     
     override func draw(_ rec: CGRect) {
+        print("attempt draw")
         graph()
+        print("done draw")
     }
     
     func graph() {

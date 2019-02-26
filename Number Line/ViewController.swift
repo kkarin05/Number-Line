@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("load")
 //        self.view.backgroundColor = UIColor(patternImage: UIImage(named:"background.jpg")!)
         
 //        UIGraphicsBeginImageContext(self.view.frame.size)
