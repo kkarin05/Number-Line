@@ -10,13 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBAction func ExitToStart(_ sender: Any) {
+         performSegue(withIdentifier: "ExitToStartMenu", sender: self)
+    }
     var i = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the background image
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named:"background.jpg")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         
         // Find the screen width and distance between points
         let screenSize: CGRect = UIScreen.main.bounds
