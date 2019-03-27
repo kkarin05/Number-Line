@@ -15,9 +15,8 @@ class Line: UIView {
     var j = 0
     
     override func draw(_ rec: CGRect) {
-        print("attempt draw")
+
         graph()
-        print("done draw")
     }
     
     func graph() {
@@ -37,12 +36,13 @@ class Line: UIView {
             let xdist = distance*CGFloat(i) + 100
             
             points[i].move(to: .init(x: xdist, y: bounds.height / 2))
-            points[i].addLine(to: .init(x: xdist, y: 450))
+            points[i].addLine(to: .init(x: xdist, y: 330))
             UIColor.black.setStroke()
             points[i].lineWidth = 10
             points[i].stroke()
             
             i = i+1
         }
+        
     }
 }

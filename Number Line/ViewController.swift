@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class ViewController: UIViewController {
 
     @IBAction func ExitToStart(_ sender: Any) {
          performSegue(withIdentifier: "ExitToStartMenu", sender: self)
     }
+    @IBOutlet weak var astronaut: UIImageView!
+    
     var i = 0
     
     override func viewDidLoad() {
@@ -29,43 +32,37 @@ class ViewController: UIViewController {
         // Defines the question
         let question = UILabel(frame: CGRect(x: 200, y: 200, width: 800, height: 40))
         question.isAccessibilityElement = true
-        question.text = "What is the answer to 1+2 = "
-        question.font = UIFont(name: "Arial-BoldMT", size: 55)
+        question.text = "Please place the astronaut on number 3."
+        question.font = UIFont(name: "Arial-BoldMT", size: 35)
         self.view.addSubview(question)
         question.accessibilityTraits = UIAccessibilityTraits.playsSound
         question.isUserInteractionEnabled = true
-        question.accessibilityLabel = "What is the answer to 1+2 = "
-        question.accessibilityHint = "Describes the question"
-        
-        let answer = UITextField(frame: CGRect(x: 945, y: 195, width: 200, height: 50))
-        answer.placeholder = "Enter text here"
-        answer.font = UIFont(name: "Arial-BoldMT", size: 25)
-        answer.borderStyle = UITextField.BorderStyle.roundedRect
-        answer.keyboardType = UIKeyboardType.default
-        answer.returnKeyType = UIReturnKeyType.done
-        self.view.addSubview(answer)
-        
-        // Tap - interaction
-//        let tap = UITapGestureRecognizer(target: self, action: Selector("boySelect:"))
+        question.accessibilityLabel = "Please place the astronaut on number 3."
         
         // Create 5 labels and make them accessible
         while (i < 6) {
             let xdist = distance*CGFloat(i) + 87.5
-            let label = UILabel(frame: CGRect(x: xdist, y: 550, width: 40, height: 40))
+            let label = UILabel(frame: CGRect(x: xdist, y: 400, width: 40, height: 100))
             label.isAccessibilityElement = true
             label.text = String(i)
-            label.font = UIFont(name: "Arial-BoldMT", size: 45)
+            label.font = UIFont(name: "Arial-BoldMT", size: 50)
             self.view.addSubview(label)
             label.accessibilityTraits = UIAccessibilityTraits.playsSound
             label.isUserInteractionEnabled = true
             label.accessibilityLabel = String(i)
-            label.accessibilityHint = "Describes the number"
-//            label.addGestureRecognizer(tap)
             i = i+1
         }
     }
     
-//    func boySelect(sender:UITapGestureRecognizer) {
-//
-//    }
+    @IBAction func handlepan(recognizer:UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in:self.view)
+        if let view = recognizer.view {
+            view.center = CGPoint(x:view.center.x + translation.x, y:view.center.y + translation.y)
+        }
+        
+        recognizer.setTranslation(CGPoint.zero, in: self.view)
+    }
+    
+    
+
 }
