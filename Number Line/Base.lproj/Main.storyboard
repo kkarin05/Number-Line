@@ -28,6 +28,21 @@
                                     <action selector="ExitToStart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FFf-B1-peJ"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WXg-th-nYf">
+                                <rect key="frame" x="0.0" y="657" width="1366" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="astronaut.png" translatesAutoresizingMaskIntoConstraints="NO" id="aBP-MU-YGn">
+                                        <rect key="frame" x="26" y="13" width="117" height="102"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="3x1-8v-uqW" appends="YES" id="88U-Oz-1a6"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -39,12 +54,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="astronaut" destination="aBP-MU-YGn" id="wzf-YD-QsD"/>
                         <segue destination="Ibz-k2-5jT" kind="presentation" identifier="ExitToStartMenu" id="BKW-2W-pRu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="3x1-8v-uqW">
+                    <connections>
+                        <action selector="handlepanWithRecognizer:" destination="BYZ-38-t0r" id="wDh-n8-HCf"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="74" y="-246"/>
+            <point key="canvasLocation" x="73.792093704245971" y="-246.09374999999997"/>
         </scene>
         <!--Start Screen View Controller-->
         <scene sceneID="2Pp-8X-SGq">
@@ -166,6 +187,9 @@
             <point key="canvasLocation" x="73.792093704245971" y="491.60156249999994"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="astronaut.png" width="128" height="124"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="BKW-2W-pRu"/>
     </inferredMetricsTieBreakers>
