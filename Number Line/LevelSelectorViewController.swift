@@ -1,33 +1,27 @@
 //
-//  StartScreenViewController.swift
+//  LevelSelectorViewController.swift
 //  Number Line
 //
-//  Created by Karin on 3/20/19.
+//  Created by Karin on 3/29/19.
 //  Copyright © 2019 Tian Liu. All rights reserved.
 //
 
 import UIKit
 
-class StartScreenViewController: UIViewController {
+class LevelSelectorViewController: UIViewController {
 
-    @IBAction func StartButton(_ sender: Any) {
-        performSegue(withIdentifier: "LevelSelect", sender: self)
+    @IBAction func Tutorial(_ sender: Any) {
+          performSegue(withIdentifier: "LevelChosen", sender: self)
     }
-    
-    @IBAction func SettingsButton(_ sender: Any) {
-         performSegue(withIdentifier: "StartToSettings", sender: self)
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Set the background image
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "StartScreenImage.jpg")!)
-        
+         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "StartScreenImage.jpg")!)
         // Do any additional setup after loading the view.
     }
     
+
     /*
     // MARK: - Navigation
 

@@ -16,6 +16,9 @@ class SettingsViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set the background image
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "StartScreenImage.jpg")!)
 
         // Do any additional setup after loading the view.
     }

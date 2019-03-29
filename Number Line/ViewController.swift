@@ -11,6 +11,10 @@ import MobileCoreServices
 
 class ViewController: UIViewController {
 
+    @IBAction func Foundit(_ sender: Any) {
+            performSegue(withIdentifier: "Submit", sender: self)
+    }
+    
     @IBAction func ExitToStart(_ sender: Any) {
          performSegue(withIdentifier: "ExitToStartMenu", sender: self)
     }
