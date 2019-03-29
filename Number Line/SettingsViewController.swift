@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         // Set the background image
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "StartScreenImage.jpg")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
 
         // Do any additional setup after loading the view.
     }

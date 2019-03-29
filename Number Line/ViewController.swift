@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Set the background image
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
         
         // Find the screen width and distance between points
         let screenSize: CGRect = UIScreen.main.bounds
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         let distance = (screenWidth - 200) / 5
         
         // Defines the question
-        let question = UILabel(frame: CGRect(x: 200, y: 200, width: 800, height: 40))
+        /*let question = UILabel(frame: CGRect(x: 200, y: 200, width: 800, height: 40))
         question.isAccessibilityElement = true
         question.text = "Please place the astronaut on number 3."
         question.font = UIFont(name: "Arial-BoldMT", size: 35)
@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         question.accessibilityTraits = UIAccessibilityTraits.playsSound
         question.isUserInteractionEnabled = true
         question.accessibilityLabel = "Please place the astronaut on number 3."
+        */
         
         // Create 5 labels and make them accessible
         while (i < 6) {
@@ -50,6 +51,7 @@ class ViewController: UIViewController {
             label.isAccessibilityElement = true
             label.text = String(i)
             label.font = UIFont(name: "Arial-BoldMT", size: 50)
+            label.textColor = UIColor.white;
             self.view.addSubview(label)
             label.accessibilityTraits = UIAccessibilityTraits.playsSound
             label.isUserInteractionEnabled = true

@@ -27,7 +27,7 @@ class Line: UIView {
         
         line.move(to: .init(x: 100, y: bounds.height / 2))
         line.addLine(to: .init(x: bounds.width - 100, y: bounds.height / 2))
-        UIColor.black.setStroke()
+        UIColor.white.setStroke()
         line.lineWidth = 10
         line.stroke()
         
@@ -37,7 +37,7 @@ class Line: UIView {
             
             points[i].move(to: .init(x: xdist, y: bounds.height / 2))
             points[i].addLine(to: .init(x: xdist, y: 330))
-            UIColor.black.setStroke()
+            UIColor.white.setStroke()
             points[i].lineWidth = 10
             points[i].stroke()
             
