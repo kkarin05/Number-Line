@@ -18,19 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WXg-th-nYf">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXg-th-nYf">
                                 <rect key="frame" x="0.0" y="620" width="1366" height="148"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="astronaut.png" translatesAutoresizingMaskIntoConstraints="NO" id="aBP-MU-YGn">
-                                        <rect key="frame" x="34" y="23" width="117" height="102"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="3x1-8v-uqW" appends="YES" id="88U-Oz-1a6"/>
-                                        </connections>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Found it!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3A-TO-XBI">
@@ -40,8 +29,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OE-ol-bdn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OE-ol-bdn">
                                 <rect key="frame" x="867" y="68" width="90" height="86"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="LuO-o5-p7P"/>
+                                    <constraint firstAttribute="height" constant="86" id="QWx-D5-btr"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                 <state key="normal" title="X">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -50,9 +43,11 @@
                                     <action selector="ExitToStart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FFf-B1-peJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbw-Gh-TIu">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbw-Gh-TIu">
                                 <rect key="frame" x="801" y="537" width="203" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="lDT-Nx-EmB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="35"/>
                                 <state key="normal" title="Found it!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -61,20 +56,43 @@
                                     <action selector="Foundit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oeM-Mh-LLi"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please place the astronaut on number 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay7-S2-6Pc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please place the astronaut on number 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay7-S2-6Pc">
                                 <rect key="frame" x="128" y="149" width="731" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="astronaut.png" translatesAutoresizingMaskIntoConstraints="NO" id="aBP-MU-YGn">
+                                <rect key="frame" x="20" y="643" width="117" height="102"/>
+                                <accessibility key="accessibilityConfiguration" label="astronaut">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="aBP-MU-YGn" secondAttribute="height" multiplier="39:34" id="3LZ-Zt-n7l"/>
+                                    <constraint firstAttribute="width" constant="117" id="OTK-Sn-Gga"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="3x1-8v-uqW" appends="YES" id="88U-Oz-1a6"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9OE-ol-bdn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="42" id="6z2-zM-VEs"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9OE-ol-bdn" secondAttribute="bottom" constant="852" id="8qC-U0-sCJ"/>
-                            <constraint firstItem="9OE-ol-bdn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="1219" id="kDr-yr-9i1"/>
-                            <constraint firstItem="9OE-ol-bdn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="yAA-3h-Vwd"/>
+                            <constraint firstItem="ay7-S2-6Pc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="129" id="5ON-ho-0cU"/>
+                            <constraint firstItem="Gbw-Gh-TIu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="801" id="9so-r3-drt"/>
+                            <constraint firstItem="WXg-th-nYf" firstAttribute="top" secondItem="Gbw-Gh-TIu" secondAttribute="bottom" constant="38" id="BKa-Um-yb7"/>
+                            <constraint firstItem="aBP-MU-YGn" firstAttribute="centerY" secondItem="WXg-th-nYf" secondAttribute="centerY" id="EYe-H3-D39"/>
+                            <constraint firstItem="9OE-ol-bdn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="48" id="H3d-kB-jd1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9OE-ol-bdn" secondAttribute="trailing" constant="67" id="Jby-HK-aRP"/>
+                            <constraint firstItem="Gbw-Gh-TIu" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Jji-8M-Ts2"/>
+                            <constraint firstItem="WXg-th-nYf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="620" id="M93-wy-NTA"/>
+                            <constraint firstItem="WXg-th-nYf" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="OFP-RG-al7"/>
+                            <constraint firstItem="ay7-S2-6Pc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="128" id="fUf-y7-LTj"/>
+                            <constraint firstItem="aBP-MU-YGn" firstAttribute="leading" secondItem="WXg-th-nYf" secondAttribute="leading" constant="20" id="g11-3g-KIu"/>
+                            <constraint firstItem="9OE-ol-bdn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ay7-S2-6Pc" secondAttribute="trailing" constant="8" symbolic="YES" id="lKr-o4-j1n"/>
+                            <constraint firstItem="WXg-th-nYf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qxW-my-Htk"/>
+                            <constraint firstAttribute="trailing" secondItem="WXg-th-nYf" secondAttribute="trailing" constant="-342" id="r4b-w5-NXd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
@@ -88,10 +106,6 @@
                                 <exclude reference="d3A-TO-XBI"/>
                                 <include reference="Gbw-Gh-TIu"/>
                             </mask>
-                            <mask key="constraints">
-                                <exclude reference="8qC-U0-sCJ"/>
-                                <exclude reference="kDr-yr-9i1"/>
-                            </mask>
                         </variation>
                     </view>
                     <connections>
@@ -101,7 +115,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="3x1-8v-uqW">
+                <panGestureRecognizer delaysTouchesEnded="NO" id="3x1-8v-uqW">
                     <connections>
                         <action selector="handlepanWithRecognizer:" destination="BYZ-38-t0r" id="wDh-n8-HCf"/>
                     </connections>
@@ -186,11 +200,6 @@
                                 <connections>
                                     <action selector="StartButton:" destination="Ibz-k2-5jT" eventType="touchUpInside" id="NB0-1s-ySZ"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGs-Ey-RXp">
-                                <rect key="frame" x="333" y="521" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -391,7 +400,7 @@
         <image name="astronaut.png" width="128" height="124"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="czd-BC-cJT"/>
+        <segue reference="LWI-Tf-gGM"/>
         <segue reference="BKW-2W-pRu"/>
     </inferredMetricsTieBreakers>
 </document>
