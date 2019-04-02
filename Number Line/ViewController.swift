@@ -7,23 +7,27 @@
 //
 
 import UIKit
-import MobileCoreServices
+import AVFoundation
 
 class ViewController: UIViewController {
-
-    @IBAction func Foundit(_ sender: Any) {
-            performSegue(withIdentifier: "Submit", sender: self)
-    }
     
     @IBAction func ExitToStart(_ sender: Any) {
          performSegue(withIdentifier: "ExitToStartMenu", sender: self)
     }
     @IBOutlet weak var astronaut: UIImageView!
     
+    @IBOutlet weak var astronautPlaceLabel: UILabel!
+    
+    @IBOutlet weak var lineRef: Line!
+    
     var i = 0
+    var ranges=[(CGFloat(0.0),CGFloat(0.0))]
+    var desiredNumber=Int.random(in: 0...5)
+    var threshold=10
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        astronautPlaceLabel.text="Please place the astronaut on number \(desiredNumber)"
         
         // Set the background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
@@ -33,16 +37,7 @@ class ViewController: UIViewController {
         let screenWidth = screenSize.width
         let distance = (screenWidth - 200) / 5
         
-        // Defines the question
-        /*let question = UILabel(frame: CGRect(x: 200, y: 200, width: 800, height: 40))
-        question.isAccessibilityElement = true
-        question.text = "Please place the astronaut on number 3."
-        question.font = UIFont(name: "Arial-BoldMT", size: 35)
-        self.view.addSubview(question)
-        question.accessibilityTraits = UIAccessibilityTraits.playsSound
-        question.isUserInteractionEnabled = true
-        question.accessibilityLabel = "Please place the astronaut on number 3."
-        */
+        ranges=[(100+distance,100+(2*distance)), (100+(2*distance), 100+(3*distance)), (100+(3*distance), 100+(4*distance)), (100+(4*distance), 100+(5*distance))]
         
         // Create 5 labels and make them accessible
         while (i < 6) {
@@ -63,15 +58,35 @@ class ViewController: UIViewController {
     @IBAction func handlepan(recognizer:UIPanGestureRecognizer) {
         let translation = recognizer.translation(in:self.view)
         if let view = recognizer.view {
-            print("touched: "+recognizer.view!.accessibilityLabel!)
             view.center = CGPoint(x:view.center.x + translation.x, y:view.center.y + translation.y)
             
         }
         self.view.bringSubviewToFront(view)
         recognizer.setTranslation(CGPoint.zero, in: self.view)
-        //recognizer.reset()
     }
     
     
+    @IBAction func Submit(_ sender: Any) {
+        let astronaut_position = astronaut.center.x
+        print("astronaut is at:" + astronaut_position.description)
+        
+        if (astronaut_position >= lineRef.points[desiredNumber].bounds.minX-30 && astronaut_position < lineRef.points[desiredNumber].bounds.maxX+30) {
+            let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow1") as! CorrectPopUpViewController
+            self.addChild(popOverVC)
+            popOverVC.view.frame = self.view.frame
+            self.view.addSubview(popOverVC.view)
+            popOverVC.didMove(toParent: self)
+            print("astronaut is in the right place!")
+        }
+        else{
+            let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow2") as! IncorrectPopUpViewController
+            self.addChild(popOverVC)
+            popOverVC.view.frame = self.view.frame
+            self.view.addSubview(popOverVC.view)
+            popOverVC.didMove(toParent: self)
+            print("astronaut is in the wrong place!")
+        }
+        
+    }
 
 }

@@ -40,7 +40,6 @@ class Line: UIView {
             UIColor.white.setStroke()
             points[i].lineWidth = 10
             points[i].stroke()
-            
             i = i+1
         }
         

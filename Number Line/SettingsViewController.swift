@@ -7,31 +7,39 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SettingsViewController: UIViewController {
-
+    var player:AVAudioPlayer = AVAudioPlayer()
+    
     @IBAction func ExitSettings(_ sender: Any) {
          performSegue(withIdentifier: "SettingsExit", sender: self)
     }
    
+    @IBAction func PlayMusic(_ sender: Any) {
+        do {
+            let audioPath = Bundle.main.path(forResource: "music", ofType: "mp3")
+            try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+        }
+        catch {
+            print(error)
+        }
+        
+        if ((sender as AnyObject).isOn == true) {
+            player.play()
+        }
+        else {
+            player.stop()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
 
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
