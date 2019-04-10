@@ -528,8 +528,7 @@
         <image name="astronaut.png" width="128" height="124"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="w6q-5Q-YQB"/>
         <segue reference="LWI-Tf-gGM"/>
-        <segue reference="M5B-Lh-f1N"/>
+        <segue reference="BKW-2W-pRu"/>
     </inferredMetricsTieBreakers>
 </document>
