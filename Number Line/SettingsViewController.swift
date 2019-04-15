@@ -17,21 +17,21 @@ class SettingsViewController: UIViewController {
     }
    
     @IBAction func PlayMusic(_ sender: Any) {
-        do {
-            let audioPath = Bundle.main.path(forResource: "music", ofType: "mp3")
-            try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
-        }
-        catch {
-            print(error)
-        }
-        
-        if ((sender as AnyObject).isOn == true) {
-            player.play()
-        }
-        else {
-            player.stop()
-        }
-    }
+//        do {
+////            let audioPath = Bundle.main.path(forResource: "music", ofType: "mp3")
+////            try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+//        }
+//        catch {
+//            print(error)
+//        }
+//
+//        if ((sender as AnyObject).isOn == true) {
+//            player.play()
+//        }
+//        else {
+//            player.stop()
+//        }
+   }
     
     override func viewDidLoad() {
         super.viewDidLoad()

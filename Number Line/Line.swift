@@ -13,35 +13,85 @@ class Line: UIView {
     var points = [UIBezierPath]()
     var i = 0
     var j = 0
-    
+    let offSetFromEdges:CGFloat=10.0
+    let numberOfPoints=5
+    let lineHeight:CGFloat=100.0
+    let lineWidth:CGFloat=10.0*3
+    var baseOfLine:CGFloat=0.0
+    var distance:CGFloat = 0.0
+    var myOffset:String=""
     override func draw(_ rec: CGRect) {
-
+        
+         baseOfLine=self.bounds.maxY-(lineWidth/2)
+         distance = (self.bounds.maxX-self.bounds.minX-(2*offSetFromEdges)-(lineWidth)) / CGFloat(numberOfPoints)
+        
         graph()
+    }
+    
+    func returnMyOffset()->CGFloat{
+        return self.bounds.minX
     }
     
     func graph() {
         // Find the screen width and the distance between points
-        let screenSize: CGRect = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        let distance = (screenWidth - 200) / 5
+        //let screenSize: CGRect = UIScreen.main.bounds
+        //let screenWidth = screenSize.width
         
-        line.move(to: .init(x: 100, y: bounds.height / 2))
-        line.addLine(to: .init(x: bounds.width - 100, y: bounds.height / 2))
+        
+        //self.center apparently isn't center of view
+        print("got here"+self.bounds.minX.description+" "+self.bounds.maxX.description+" "+self.center.y.description)
+        line.move(to: CGPoint(x: self.bounds.minX+offSetFromEdges, y: baseOfLine))
+        line.addLine(to: CGPoint(x: self.bounds.maxX-offSetFromEdges, y: baseOfLine))
         UIColor.white.setStroke()
-        line.lineWidth = 10
+        line.lineWidth = lineWidth
         line.stroke()
+        //line.
+        //TODO: to make it only say number line when you leave bounds, in view controller, make it so that when you enter the background, it removes accessibility label, and only reenables it if the focused accessibility element is NOT in this subview (didlosefocus on line and ticks)
         
-        while (i < 6) {
+        //var focusedView: UIView=UIAccessibility.focusedElement(using: UIAccessibility.AssistiveTechnologyIdentifier.notificationVoiceOver) as! UIView
+        
+        var backgroundView:UIView=UIView(frame: CGRect(x:self.bounds.minX,y:self.bounds.minY,width:self.bounds.maxX-self.bounds.minX,height:self.bounds.maxY-self.bounds.minY))
+        print("inside line, minX is "+self.bounds.minX.description)
+        self.myOffset=self.bounds.minX.description
+        backgroundView.isAccessibilityElement=true
+        backgroundView.accessibilityLabel=""
+        self.addSubview(backgroundView)
+        while (i < numberOfPoints+1) {
             points.append(UIBezierPath())
-            let xdist = distance*CGFloat(i) + 100
+            let xdist = distance*CGFloat(i) + offSetFromEdges
             
-            points[i].move(to: .init(x: xdist, y: bounds.height / 2))
-            points[i].addLine(to: .init(x: xdist, y: 330))
+            points[i].move(to: .init(x: xdist+(0.5*lineWidth), y: baseOfLine))
+            points[i].addLine(to: .init(x: xdist+(0.5*lineWidth), y: baseOfLine-lineHeight))
             UIColor.white.setStroke()
-            points[i].lineWidth = 10
+            points[i].lineWidth = lineWidth
             points[i].stroke()
+            points[i].isAccessibilityElement = true
+            points[i].accessibilityTraits = UIAccessibilityTraits.playsSound
+           // points[i].isUserInteractionEnabled = true
+            points[i].accessibilityLabel = String(i)
+            var myUIView:UIView = UIView(frame: CGRect(x:xdist+(0.5*lineWidth)-(lineWidth/2),y:baseOfLine-lineHeight,width:lineWidth,height:lineHeight))
+            myUIView.isAccessibilityElement=true
+            myUIView.accessibilityLabel=""
+            self.addSubview(myUIView)
+            self.bringSubviewToFront(myUIView)
             i = i+1
+            
         }
         
+        (self.parentViewController as! ViewController).initializeNumberTexts()
+    }
+}
+
+extension UIView{
+    var parentViewController:UIViewController?{
+        var parentResponder:UIResponder?=self
+        while parentResponder != nil {
+            parentResponder=parentResponder!.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+            
+        }
+        return nil
     }
 }
