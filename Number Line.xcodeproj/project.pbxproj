@@ -19,6 +19,7 @@
 		317C26B7221F5F6A00B4F12A /* Number_LineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317C26B6221F5F6A00B4F12A /* Number_LineTests.swift */; };
 		317C26C2221F5F6A00B4F12A /* Number_LineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317C26C1221F5F6A00B4F12A /* Number_LineUITests.swift */; };
 		317C26D0221F5FF100B4F12A /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317C26CF221F5FF100B4F12A /* Line.swift */; };
+		3186E97F2277D32A006B47CA /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3186E97E2277D329006B47CA /* music.mp3 */; };
 		9A1775A622425AC0005E3DD7 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1775A522425AC0005E3DD7 /* StartScreenViewController.swift */; };
 		9A2A0A73224E70ED006AA59F /* LevelSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2A0A72224E70ED006AA59F /* LevelSelectorViewController.swift */; };
 		9AA3298222491A69008ADB9D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA3298122491A69008ADB9D /* SettingsViewController.swift */; };
@@ -62,6 +63,7 @@
 		317C26C1221F5F6A00B4F12A /* Number_LineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number_LineUITests.swift; sourceTree = "<group>"; };
 		317C26C3221F5F6A00B4F12A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		317C26CF221F5FF100B4F12A /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		3186E97E2277D329006B47CA /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music.mp3; path = ../../../Desktop/music.mp3; sourceTree = "<group>"; };
 		9A1775A522425AC0005E3DD7 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		9A2A0A72224E70ED006AA59F /* LevelSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectorViewController.swift; sourceTree = "<group>"; };
 		9AA3298122491A69008ADB9D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				3179B6BC2253E10E002FDDA5 /* AppIcon.appiconset */,
 				3166DB792224823A008C9F04 /* astronaut.png */,
 				3166DB7622247DCC008C9F04 /* background.jpg */,
+				3186E97E2277D329006B47CA /* music.mp3 */,
 				317C26AA221F5F6A00B4F12A /* LaunchScreen.storyboard */,
 				9A1775A522425AC0005E3DD7 /* StartScreenViewController.swift */,
 				317C26AD221F5F6A00B4F12A /* Info.plist */,
@@ -257,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3186E97F2277D32A006B47CA /* music.mp3 in Resources */,
 				3179B6BD2253E10F002FDDA5 /* AppIcon.appiconset in Resources */,
 				317C26AC221F5F6A00B4F12A /* LaunchScreen.storyboard in Resources */,
 				317C26A9221F5F6A00B4F12A /* Assets.xcassets in Resources */,

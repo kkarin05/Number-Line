@@ -35,7 +35,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        astronautPlaceLabel.text="Please place the astronaut on number \(desiredNumber)"
+        astronautPlaceLabel.text="Drag the astronaut to \(desiredNumber)" + " and click on submit"
         
         // Set the background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
@@ -109,15 +109,19 @@ class ViewController: UIViewController {
     
     
     @IBAction func Submit(_ sender: Any) {
-        let astronaut_position = astronaut.center.x
-        print("astronaut is at:" + astronaut_position.description)
+        let astronaut_positionX = astronaut.center.x
+        let astronaut_positionY = astronaut.center.y
+        print("astronaut is at X:" + astronaut_positionX.description)
+        print("astronaut is at Y:" + astronaut_positionY.description)
         var linerefbounds:CGRect=lineRef.bounds
         var minXOfLine = lineRef.center.x-(linerefbounds.width/2)
-        var maxYOfLine = lineRef.center.y+(linerefbounds.height/2)
-        
-        //var minXOfDesiredLine = minXOfLine + (lineRef.points[desiredNumber] as! UIBezierPath).bounds
-        print("desired"+(lineRef.points[desiredNumber].bounds.minX+minXOfLine).description)
-        if (astronaut_position >= lineRef.points[desiredNumber].bounds.minX+minXOfLine-30 && astronaut_position < lineRef.points[desiredNumber].bounds.maxX+minXOfLine+30) {
+        var maxYOfLine = lineRef.center.y
+    print("desiredX"+(lineRef.points[desiredNumber].bounds.minX+minXOfLine).description)
+        print("desiredY"+maxYOfLine.description)
+        if (astronaut_positionX >= lineRef.points[desiredNumber].bounds.minX+minXOfLine-30 && astronaut_positionX < lineRef.points[desiredNumber].bounds.maxX+minXOfLine+30
+            && astronaut_positionY >= maxYOfLine-50 &&
+            astronaut_positionY < maxYOfLine+50 ) {
+            
             popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow1") as! CorrectPopUpViewController
             popOverVC?.parentVC=self
             popOverVC?.numLevelsComplete=self.howManyLevelsAreDone
