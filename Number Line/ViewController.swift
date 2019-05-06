@@ -37,12 +37,14 @@ class ViewController: UIViewController {
     var maxWaitingTime:Int=5
     var waitingTime:Int = 5
     
+    var mostrecentTick:UIView?=nil
     
+    var accessibleNumbers:[UIView]=[]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         isAccessibilityElement = true 
-        astronautPlaceLabel.text="Drag the astronaut to \(desiredNumber)" + " and click on submit"
+        astronautPlaceLabel.text="Drag the astronaut to tick \(desiredNumber)" + " and click submit"
         
         // Set the background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
@@ -59,6 +61,17 @@ class ViewController: UIViewController {
                 }
             })*/
             
+        }
+        
+        if(!UIAccessibility.isVoiceOverRunning){
+            let utterance = AVSpeechUtterance(string: "Drag the astronaut to tick \(desiredNumber)" + " and click submit")
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            //AVSpeechSynthesisVoice(
+            utterance.rate = 0.5
+            utterance.volume=5
+            
+            let synthesizer = AVSpeechSynthesizer()
+            synthesizer.speak(utterance)
         }
         
         
@@ -117,6 +130,7 @@ class ViewController: UIViewController {
             label.accessibilityTraits = UIAccessibilityTraits.playsSound
             label.isUserInteractionEnabled = true
             label.accessibilityLabel = String(i)
+            accessibleNumbers.append(label)
             i = i+1
         }
     }
@@ -132,6 +146,100 @@ class ViewController: UIViewController {
             let astronaut_position = astronaut.center.x
             print("astronaut is at:" + astronaut_position.description)
             print("offset = "+translation.x.description+" "+translation.y.description)
+            
+            //test for intersections
+            var possibleViewsToIntersect:[UIView] = []//lineRef!.accessibleTicks
+            
+            for numlabel in accessibleNumbers{
+                possibleViewsToIntersect.append(numlabel)
+            }
+            
+            
+            let intersectingTicks:[UIView]=lineRef!.accessibleTicks.filter{$0 != view && view.frame.intersects(CGRect(x: $0.frame.minX+lineRef.frame.minX, y: $0.frame.minY+lineRef.frame.minY, width: $0.frame.width, height: $0.frame.height))}
+            
+            let intersectingNums:[UIView]=possibleViewsToIntersect.filter{$0 != view && view.frame.intersects($0.frame)}
+            
+            var intersectingViews=intersectingTicks
+            
+            
+            for nums in intersectingNums{
+                intersectingViews.append(nums)
+            }
+            
+            print("num intersects="+(intersectingViews.count).description)
+            for iView in intersectingViews{
+                print("Intersect="+(iView.accessibilityLabel ?? "NO ACCESS"))
+            }
+            
+            if (intersectingViews.count==0){
+                mostrecentTick=nil
+            }else if (intersectingViews.count==1){
+                if (intersectingViews[0] != mostrecentTick) {
+                    mostrecentTick=intersectingViews[0]
+                    //synthesize
+                    let utterance = AVSpeechUtterance(string: intersectingViews[0].accessibilityLabel ?? "")
+                    utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                    //AVSpeechSynthesisVoice(
+                    utterance.rate = 0.5
+                    utterance.volume=5
+                    
+                    let synthesizer = AVSpeechSynthesizer()
+                    synthesizer.speak(utterance)
+                }
+                else{
+                    //do nothing b/c it's the same read item
+                }
+            }else if (intersectingViews.count==2){
+                if (intersectingViews[1] != mostrecentTick) {
+                    mostrecentTick=intersectingViews[1]
+                    //synthesize
+                    let utterance = AVSpeechUtterance(string: intersectingViews[1].accessibilityLabel ?? "")
+                    utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                    //AVSpeechSynthesisVoice(
+                    utterance.rate = 0.5
+                    utterance.volume=5
+                    
+                    let synthesizer = AVSpeechSynthesizer()
+                    synthesizer.speak(utterance)
+                }
+                else{
+                    //do nothing b/c it's the same read item
+                }
+            }else{
+                print("more than 2 intersecting items")
+            }
+            /*
+            //count is a max of 2 (tick and the number)
+            //if == 2 print number
+            if (intersectingViews[0] != mostrecentTick) {
+                if (intersectingViews.count==1){
+                    //synthesize for the 1 thing
+                        let utterance = AVSpeechUtterance(string: intersectingViews[0].accessibilityLabel ?? "")
+                        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                        //AVSpeechSynthesisVoice(
+                        utterance.rate = 0.5
+                        utterance.volume=5
+                    
+                        let synthesizer = AVSpeechSynthesizer()
+                        synthesizer.speak(utterance)
+                }
+            }
+            
+            if (intersectingViews.count==2){
+                var testIView0:TickView? = intersectingViews[0] as? TickView ?? nil
+                if(testIView0 == nil){
+                    //this is a #
+                    print("this is a #")
+                }
+                else{
+                    //this is a tick
+                    print("this is a tick")
+                }
+            }*/
+            
+            
+            
+            
             if(translation.x >= -0.1 && translation.x <= 0.1 && translation.y >= -0.1 && translation.y <= 0.1 && holdingAstronaut){
                 print("splat")
                 playSound()
@@ -192,9 +300,9 @@ class ViewController: UIViewController {
         var maxYOfLine = lineRef.center.y
     print("desiredX"+(lineRef.points[desiredNumber].bounds.minX+minXOfLine).description)
         print("desiredY"+maxYOfLine.description)
-        if (astronaut_positionX >= lineRef.points[desiredNumber].bounds.minX+minXOfLine-30 && astronaut_positionX < lineRef.points[desiredNumber].bounds.maxX+minXOfLine+30
-            && astronaut_positionY >= maxYOfLine-200 &&
-            astronaut_positionY < maxYOfLine+200 ) {
+        if (astronaut_positionX >= lineRef.points[desiredNumber].bounds.minX+minXOfLine-40 && astronaut_positionX < lineRef.points[desiredNumber].bounds.maxX+minXOfLine+40
+            && astronaut_positionY >= maxYOfLine-70 &&
+            astronaut_positionY < maxYOfLine+100) {
             
             //popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow1") as! CorrectPopUpViewController
             //popOverVC?.parentVC=self

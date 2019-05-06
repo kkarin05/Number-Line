@@ -10,9 +10,10 @@ import UIKit
 
 class LevelSelectorViewController: UIViewController {
 
-    @IBAction func Tutorial(_ sender: Any) {
-          performSegue(withIdentifier: "LevelChosen", sender: self)
-    }
+//    @IBAction func Tutorial(_ sender: Any) {
+//          //performSegue(withIdentifier: "Level Two Tutorial", sender: self)
+//    }
+    
     @IBAction func ExitToStart(_ sender: Any) {performSegue(withIdentifier: "LStoStart", sender: self)
     }
     

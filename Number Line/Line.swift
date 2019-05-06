@@ -74,12 +74,13 @@ class Line: UIView {
             points[i].accessibilityTraits = UIAccessibilityTraits.playsSound
            // points[i].isUserInteractionEnabled = true
             points[i].accessibilityLabel = String(i)
-            var myUIView:TickView = TickView(frame: CGRect(x:xdist+(0.5*lineWidth)-(lineWidth/2),y:baseOfLine-lineHeight,width:lineWidth,height:lineHeight))
+            var myUIView:TickView = TickView(frame: CGRect(x:xdist+(0.5*lineWidth)-(lineWidth/2),y:baseOfLine-lineHeight,width:lineWidth,height:lineHeight+(0.5*lineWidth)))
             myUIView.isAccessibilityElement=true
             myUIView.accessibilityLabel="tick"
+            accessibleTicks.append(myUIView)
             self.addSubview(myUIView)
             self.bringSubviewToFront(myUIView)
-            accessibleTicks.append(myUIView)
+            
             i = i+1
             
         }

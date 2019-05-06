@@ -24,7 +24,7 @@ class SettingsViewController: UIViewController {
         catch {
             print(error)
         }
-        
+        player.numberOfLoops = -1
         player.play()
     }
     
@@ -36,7 +36,7 @@ class SettingsViewController: UIViewController {
         catch {
             print(error)
         }
-        
+        player.numberOfLoops = 0
         player.stop()
     }
     
