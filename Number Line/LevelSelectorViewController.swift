@@ -13,6 +13,8 @@ class LevelSelectorViewController: UIViewController {
     @IBAction func Tutorial(_ sender: Any) {
           performSegue(withIdentifier: "LevelChosen", sender: self)
     }
+    @IBAction func ExitToStart(_ sender: Any) {performSegue(withIdentifier: "LStoStart", sender: self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

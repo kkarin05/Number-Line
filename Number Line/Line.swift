@@ -20,8 +20,10 @@ class Line: UIView {
     var baseOfLine:CGFloat=0.0
     var distance:CGFloat = 0.0
     var myOffset:String=""
+    var backgroundView:LineBackgroundView?=nil
+    var accessibleTicks:[TickView]=[]
     override func draw(_ rec: CGRect) {
-        
+        //isAccessibilityElement = true
          baseOfLine=self.bounds.maxY-(lineWidth/2)
          distance = (self.bounds.maxX-self.bounds.minX-(2*offSetFromEdges)-(lineWidth)) / CGFloat(numberOfPoints)
         
@@ -50,12 +52,15 @@ class Line: UIView {
         
         //var focusedView: UIView=UIAccessibility.focusedElement(using: UIAccessibility.AssistiveTechnologyIdentifier.notificationVoiceOver) as! UIView
         
-        var backgroundView:UIView=UIView(frame: CGRect(x:self.bounds.minX,y:self.bounds.minY,width:self.bounds.maxX-self.bounds.minX,height:self.bounds.maxY-self.bounds.minY))
+        backgroundView=LineBackgroundView(frame: CGRect(x:self.bounds.minX,y:self.bounds.minY,width:self.bounds.maxX-self.bounds.minX,height:self.bounds.maxY-self.bounds.minY))
+        backgroundView!.line=self
         print("inside line, minX is "+self.bounds.minX.description)
         self.myOffset=self.bounds.minX.description
-        backgroundView.isAccessibilityElement=true
-        backgroundView.accessibilityLabel=""
-        self.addSubview(backgroundView)
+        backgroundView!.isAccessibilityElement=true
+        backgroundView!.accessibilityLabel=""
+        //backgroundView!.isUserInteractionEnabled=false
+        //backgroundView!.accessibilityTraits = .none
+        self.addSubview(backgroundView!)
         while (i < numberOfPoints+1) {
             points.append(UIBezierPath())
             let xdist = distance*CGFloat(i) + offSetFromEdges
@@ -69,16 +74,36 @@ class Line: UIView {
             points[i].accessibilityTraits = UIAccessibilityTraits.playsSound
            // points[i].isUserInteractionEnabled = true
             points[i].accessibilityLabel = String(i)
-            var myUIView:UIView = UIView(frame: CGRect(x:xdist+(0.5*lineWidth)-(lineWidth/2),y:baseOfLine-lineHeight,width:lineWidth,height:lineHeight))
+            var myUIView:TickView = TickView(frame: CGRect(x:xdist+(0.5*lineWidth)-(lineWidth/2),y:baseOfLine-lineHeight,width:lineWidth,height:lineHeight))
             myUIView.isAccessibilityElement=true
-            myUIView.accessibilityLabel=""
+            myUIView.accessibilityLabel="tick"
             self.addSubview(myUIView)
             self.bringSubviewToFront(myUIView)
+            accessibleTicks.append(myUIView)
             i = i+1
             
         }
         
         (self.parentViewController as! ViewController).initializeNumberTexts()
+    }
+    
+    override func accessibilityElementDidBecomeFocused()
+    {
+        ///self.focus
+        
+        //x, ticks, lineref,question, submit, astronaut
+        
+        //for (var count=0;i<10;i++){
+        
+        //}
+        print("focused line")
+    }
+    
+    func reenableAllTicks(){
+        
+        for tick in accessibleTicks{
+            tick.isAccessibilityElement=true
+        }
     }
 }
 

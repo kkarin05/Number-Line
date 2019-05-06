@@ -30,11 +30,18 @@ class ViewController: UIViewController {
     var threshold=10
     
     var exampleVar:Int=0
-    
+    var player: AVAudioPlayer?
     var howManyLevelsAreDone:Int=0
+    
+    var holdingAstronaut:Bool=false
+    var maxWaitingTime:Int=5
+    var waitingTime:Int = 5
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isAccessibilityElement = true 
         astronautPlaceLabel.text="Drag the astronaut to \(desiredNumber)" + " and click on submit"
         
         // Set the background image
@@ -56,6 +63,29 @@ class ViewController: UIViewController {
         
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var tryAgainVC=segue.destination as? IncorrectPopUpViewController
+        if(tryAgainVC != nil){
+            print("is a try again")
+            tryAgainVC?.previousVCNum=desiredNumber
+        }
+        else{
+            var rightVC = segue.destination as? CorrectPopUpViewController
+            if (rightVC != nil){
+                print("is correct")
+                rightVC!.parentVC=self
+                rightVC!.numLevelsComplete=self.howManyLevelsAreDone
+            }
+            else{
+                print("other vc")
+            }
+        }
+        
+
+    }
+    
+    
     
     func initializeNumberTexts(){
         // Find the screen width and distance between points
@@ -92,19 +122,63 @@ class ViewController: UIViewController {
     }
     
     @IBAction func handlepan(recognizer:UIPanGestureRecognizer) {
+        print("panning")
         var focusedView=UIAccessibility.focusedElement(using: UIAccessibility.AssistiveTechnologyIdentifier.notificationVoiceOver)
-        print("focused: "+focusedView.debugDescription)
+        print("focused: "+focusedView.debugDescription+" at "+recognizer.view!.center.x.description)
         let translation = recognizer.translation(in:self.view)
         //make sure to check that it's the astronaut
         //can make a child of UIIMageView for astronaut and attempt to cast to it
         if let view = recognizer.view {
             let astronaut_position = astronaut.center.x
             print("astronaut is at:" + astronaut_position.description)
+            print("offset = "+translation.x.description+" "+translation.y.description)
+            if(translation.x >= -0.1 && translation.x <= 0.1 && translation.y >= -0.1 && translation.y <= 0.1 && holdingAstronaut){
+                print("splat")
+                playSound()
+                holdingAstronaut=false
+                waitingTime=maxWaitingTime
+            }
+            else{
+                if(waitingTime<0){
+                    holdingAstronaut=true
+                    print("holding")
+                }
+                else{
+                    waitingTime-=1
+                    holdingAstronaut=false
+                    print("decrement")
+                }
+            }
             view.center = CGPoint(x:view.center.x + translation.x, y:view.center.y + translation.y)
             
         }
         self.view.bringSubviewToFront(view)
         recognizer.setTranslation(CGPoint.zero, in: self.view)
+    }
+    
+    
+    
+    
+    func playSound() {
+        guard let url = Bundle.main.url(forResource: "splat", withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            /* iOS 10 and earlier require the following line:
+             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+            
+            guard let player = player else { return }
+            
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     
@@ -119,29 +193,64 @@ class ViewController: UIViewController {
     print("desiredX"+(lineRef.points[desiredNumber].bounds.minX+minXOfLine).description)
         print("desiredY"+maxYOfLine.description)
         if (astronaut_positionX >= lineRef.points[desiredNumber].bounds.minX+minXOfLine-30 && astronaut_positionX < lineRef.points[desiredNumber].bounds.maxX+minXOfLine+30
-            && astronaut_positionY >= maxYOfLine-50 &&
-            astronaut_positionY < maxYOfLine+50 ) {
+            && astronaut_positionY >= maxYOfLine-200 &&
+            astronaut_positionY < maxYOfLine+200 ) {
             
-            popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow1") as! CorrectPopUpViewController
-            popOverVC?.parentVC=self
-            popOverVC?.numLevelsComplete=self.howManyLevelsAreDone
-            if (popOverVC != nil){
-                print("pop")
-            }
-            self.addChild(popOverVC!)
-            popOverVC!.view.frame = self.view.frame
-            self.view.addSubview(popOverVC!.view)
-            popOverVC!.didMove(toParent: self)
-            print("astronaut is in the right place!")
+            //popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow1") as! CorrectPopUpViewController
+            //popOverVC?.parentVC=self
+            //popOverVC?.numLevelsComplete=self.howManyLevelsAreDone
+            //if (popOverVC != nil){
+             //   print("pop")
+            //}
+            //self.addChild(popOverVC!)
+            //popOverVC!.view.frame = self.view.frame
+            
+            //x,
+            performSegue(withIdentifier: "toCongrats", sender: self)
+            
+            //self.view.addSubview(popOverVC!.view)
+            //popOverVC!.didMove(toParent: self)
+            //print("astronaut is in the right place!")
         }
         else{
-            let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow2") as! IncorrectPopUpViewController
-            self.addChild(popOverVC)
-            popOverVC.view.frame = self.view.frame
-            self.view.addSubview(popOverVC.view)
-            popOverVC.didMove(toParent: self)
             print("astronaut is in the wrong place!")
+            performSegue(withIdentifier: "toTryAgain", sender: self)
+            //let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow2") as! IncorrectPopUpViewController
+            //self.addChild(popOverVC)
+            //popOverVC.view.frame = self.view.frame
+            //self.view.addSubview(popOverVC.view)
+            //popOverVC.didMove(toParent: self)
+            
         }
+        
+    }
+    
+    override func accessibilityElementDidBecomeFocused()
+    {
+        ///self.focus
+        
+        //x, ticks, lineref,question, submit, astronaut
+        
+        //for (var count=0;i<10;i++){
+            
+        //}
+        print("focused")
+        var focusedElement:UIView
+        var accessibleTicksRef:[UIView]=lineRef.accessibleTicks
+        var touchedATick:Bool=false
+        for i in 0...lineRef.accessibleTicks.count{
+            //check if they are focused
+            if(accessibleTicksRef[i].accessibilityElementIsFocused()){
+                //this is the focused element
+                focusedElement=accessibleTicksRef[i]
+                //MAKE LINEREF NOT ACCESSIBLE
+                touchedATick=true
+                focusedElement.isAccessibilityElement=false
+                break
+            }
+        }
+        
+        
         
     }
     

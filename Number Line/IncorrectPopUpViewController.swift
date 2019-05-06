@@ -10,6 +10,7 @@ import UIKit
 
 class IncorrectPopUpViewController: UIViewController {
     
+    var previousVCNum:Int=0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,9 +24,16 @@ class IncorrectPopUpViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var levelVC:ViewController=segue.destination as! ViewController
+        
+        levelVC.desiredNumber=previousVCNum
+    }
 
     @IBAction func closePopUp(_ sender: Any) {
-        self.removeAnimate()
+        //self.removeAnimate()
+        performSegue(withIdentifier: "tryAgainToLevel", sender: self)
     }
 
     func showAnimate()
