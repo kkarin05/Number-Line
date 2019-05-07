@@ -11,30 +11,20 @@ import AVFoundation
 
 class StartScreenViewController: UIViewController {
 
+    // Directs player to level selection if he/she clicks start
     @IBAction func StartButton(_ sender: Any) {
         performSegue(withIdentifier: "LevelSelect", sender: self)
     }
     
+    // Directs player to setting if he/she clicks start
     @IBAction func SettingsButton(_ sender: Any) {
          performSegue(withIdentifier: "StartToSettings", sender: self)
     }
-    
-  //  var player:AVAudioPlayer = AVAudioPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Set the background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "StartScreenImage.jpg")!)
-        
-//        do {
-//            let audioPath = Bundle.main.path(forResource: "music", ofType: "mp3")
-//            try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
-//        }
-//        catch {
-//            print(error)
-//        }
-//
-//        player.play()
     }
 }

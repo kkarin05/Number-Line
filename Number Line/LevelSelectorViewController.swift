@@ -10,29 +10,13 @@ import UIKit
 
 class LevelSelectorViewController: UIViewController {
 
-//    @IBAction func Tutorial(_ sender: Any) {
-//          //performSegue(withIdentifier: "Level Two Tutorial", sender: self)
-//    }
-    
     @IBAction func ExitToStart(_ sender: Any) {performSegue(withIdentifier: "LStoStart", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
-        // Do any additional setup after loading the view.
+        // Add background image
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

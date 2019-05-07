@@ -11,13 +11,12 @@ import AVFoundation
 
 class LevelTwoTutorial: UIViewController {
     
+    // This is the tutorial page for level two
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
-        
     }
-    
-    
 }

@@ -22,11 +22,11 @@ class Line: UIView {
     var myOffset:String=""
     var backgroundView:LineBackgroundView?=nil
     var accessibleTicks:[TickView]=[]
+    
+    // Draw out the number line
     override func draw(_ rec: CGRect) {
-        //isAccessibilityElement = true
-         baseOfLine=self.bounds.maxY-(lineWidth/2)
-         distance = (self.bounds.maxX-self.bounds.minX-(2*offSetFromEdges)-(lineWidth)) / CGFloat(numberOfPoints)
-        
+        baseOfLine=self.bounds.maxY-(lineWidth/2)
+        distance = (self.bounds.maxX-self.bounds.minX-(2*offSetFromEdges)-(lineWidth)) / CGFloat(numberOfPoints)
         graph()
     }
     
@@ -34,33 +34,25 @@ class Line: UIView {
         return self.bounds.minX
     }
     
+    // Create the number line
     func graph() {
-        // Find the screen width and the distance between points
-        //let screenSize: CGRect = UIScreen.main.bounds
-        //let screenWidth = screenSize.width
-        
-        
-        //self.center apparently isn't center of view
-        print("got here"+self.bounds.minX.description+" "+self.bounds.maxX.description+" "+self.center.y.description)
         line.move(to: CGPoint(x: self.bounds.minX+offSetFromEdges, y: baseOfLine))
         line.addLine(to: CGPoint(x: self.bounds.maxX-offSetFromEdges, y: baseOfLine))
         UIColor.white.setStroke()
         line.lineWidth = lineWidth
         line.stroke()
-        //line.
-        //TODO: to make it only say number line when you leave bounds, in view controller, make it so that when you enter the background, it removes accessibility label, and only reenables it if the focused accessibility element is NOT in this subview (didlosefocus on line and ticks)
-        
-        //var focusedView: UIView=UIAccessibility.focusedElement(using: UIAccessibility.AssistiveTechnologyIdentifier.notificationVoiceOver) as! UIView
-        
+
+        // The line is on a subview, so we need to add this subview on the screen. 
         backgroundView=LineBackgroundView(frame: CGRect(x:self.bounds.minX,y:self.bounds.minY,width:self.bounds.maxX-self.bounds.minX,height:self.bounds.maxY-self.bounds.minY))
         backgroundView!.line=self
-        print("inside line, minX is "+self.bounds.minX.description)
+        
         self.myOffset=self.bounds.minX.description
         backgroundView!.isAccessibilityElement=true
         backgroundView!.accessibilityLabel=""
-        //backgroundView!.isUserInteractionEnabled=false
-        //backgroundView!.accessibilityTraits = .none
+
         self.addSubview(backgroundView!)
+        
+        // Create tick marks 0-5
         while (i < numberOfPoints+1) {
             points.append(UIBezierPath())
             let xdist = distance*CGFloat(i) + offSetFromEdges
@@ -72,7 +64,6 @@ class Line: UIView {
             points[i].stroke()
             points[i].isAccessibilityElement = true
             points[i].accessibilityTraits = UIAccessibilityTraits.playsSound
-           // points[i].isUserInteractionEnabled = true
             points[i].accessibilityLabel = String(i)
             var myUIView:TickView = TickView(frame: CGRect(x:xdist+(0.5*lineWidth)-(lineWidth/2),y:baseOfLine-lineHeight,width:lineWidth,height:lineHeight+(0.5*lineWidth)))
             myUIView.isAccessibilityElement=true
@@ -84,22 +75,10 @@ class Line: UIView {
             i = i+1
             
         }
-        
         (self.parentViewController as! ViewController).initializeNumberTexts()
     }
     
-    override func accessibilityElementDidBecomeFocused()
-    {
-        ///self.focus
-        
-        //x, ticks, lineref,question, submit, astronaut
-        
-        //for (var count=0;i<10;i++){
-        
-        //}
-        print("focused line")
-    }
-    
+    // Make tick marks accessible
     func reenableAllTicks(){
         
         for tick in accessibleTicks{

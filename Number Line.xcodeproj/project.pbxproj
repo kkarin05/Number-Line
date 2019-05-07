@@ -11,8 +11,9 @@
 		310C4B8922541C74005C0B58 /* CorrectPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310C4B8822541C74005C0B58 /* CorrectPopUpViewController.swift */; };
 		3112FDCA2280980D00D1915A /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3112FDC92280980D00D1915A /* music.mp3 */; };
 		3112FDCC228098D200D1915A /* LevelTwoTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3112FDCB228098D200D1915A /* LevelTwoTutorial.swift */; };
-		31412085224B244800F00D0D /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31412084224B244800F00D0D /* Background.swift */; };
 		316D1EBA2280BDA8009F0B08 /* astronaut.png in Resources */ = {isa = PBXBuildFile; fileRef = 316D1EB92280BDA7009F0B08 /* astronaut.png */; };
+		316D1EBC2281D487009F0B08 /* LineBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316D1EBB2281D487009F0B08 /* LineBackgroundView.swift */; };
+		316D1EBE2281D48F009F0B08 /* TickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316D1EBD2281D48E009F0B08 /* TickView.swift */; };
 		3179B6BD2253E10F002FDDA5 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 3179B6BC2253E10E002FDDA5 /* AppIcon.appiconset */; };
 		317C26A2221F5F6900B4F12A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317C26A1221F5F6900B4F12A /* AppDelegate.swift */; };
 		317C26A4221F5F6900B4F12A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317C26A3221F5F6900B4F12A /* ViewController.swift */; };
@@ -25,8 +26,6 @@
 		9A1775A622425AC0005E3DD7 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1775A522425AC0005E3DD7 /* StartScreenViewController.swift */; };
 		9A2A0A73224E70ED006AA59F /* LevelSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2A0A72224E70ED006AA59F /* LevelSelectorViewController.swift */; };
 		9AA3298222491A69008ADB9D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA3298122491A69008ADB9D /* SettingsViewController.swift */; };
-		D604CC782278CC0200783367 /* TickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D604CC772278CC0200783367 /* TickView.swift */; };
-		D604CC7A2278CCAF00783367 /* LineBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D604CC792278CCAF00783367 /* LineBackgroundView.swift */; };
 		D604CC7C2278E27000783367 /* splat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D604CC7B2278E27000783367 /* splat.mp3 */; };
 /* End PBXBuildFile section */
 
@@ -52,9 +51,9 @@
 		310C4B8822541C74005C0B58 /* CorrectPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectPopUpViewController.swift; sourceTree = "<group>"; };
 		3112FDC92280980D00D1915A /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music.mp3; path = ../../../Desktop/music.mp3; sourceTree = "<group>"; };
 		3112FDCB228098D200D1915A /* LevelTwoTutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTwoTutorial.swift; sourceTree = "<group>"; };
-		31412084224B244800F00D0D /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
-		3166DB7622247DCC008C9F04 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		316D1EB92280BDA7009F0B08 /* astronaut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = astronaut.png; path = ../../../Desktop/astronaut.png; sourceTree = "<group>"; };
+		316D1EBB2281D487009F0B08 /* LineBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineBackgroundView.swift; path = ../../../.Trash/LineBackgroundView.swift; sourceTree = "<group>"; };
+		316D1EBD2281D48E009F0B08 /* TickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TickView.swift; path = ../../../.Trash/TickView.swift; sourceTree = "<group>"; };
 		3179B6BC2253E10E002FDDA5 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.appiconset; path = ../../../Downloads/logo/ios/AppIcon.appiconset; sourceTree = "<group>"; };
 		317C269E221F5F6900B4F12A /* Number Line.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Number Line.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		317C26A1221F5F6900B4F12A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,8 +72,6 @@
 		9A1775A522425AC0005E3DD7 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		9A2A0A72224E70ED006AA59F /* LevelSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectorViewController.swift; sourceTree = "<group>"; };
 		9AA3298122491A69008ADB9D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		D604CC772278CC0200783367 /* TickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickView.swift; sourceTree = "<group>"; };
-		D604CC792278CCAF00783367 /* LineBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineBackgroundView.swift; sourceTree = "<group>"; };
 		D604CC7B2278E27000783367 /* splat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = splat.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,27 +123,25 @@
 		317C26A0221F5F6900B4F12A /* Number Line */ = {
 			isa = PBXGroup;
 			children = (
-				D604CC792278CCAF00783367 /* LineBackgroundView.swift */,
+				317C26A5221F5F6900B4F12A /* Main.storyboard */,
+				317C26AA221F5F6A00B4F12A /* LaunchScreen.storyboard */,
 				317C26A1221F5F6900B4F12A /* AppDelegate.swift */,
 				317C26A3221F5F6900B4F12A /* ViewController.swift */,
-				317C26A5221F5F6900B4F12A /* Main.storyboard */,
 				310C4B8622541BCB005C0B58 /* IncorrectPopUpViewController.swift */,
 				310C4B8822541C74005C0B58 /* CorrectPopUpViewController.swift */,
+				316D1EBD2281D48E009F0B08 /* TickView.swift */,
+				316D1EBB2281D487009F0B08 /* LineBackgroundView.swift */,
 				9A2A0A72224E70ED006AA59F /* LevelSelectorViewController.swift */,
+				317C26CF221F5FF100B4F12A /* Line.swift */,
+				3112FDCB228098D200D1915A /* LevelTwoTutorial.swift */,
+				9A1775A522425AC0005E3DD7 /* StartScreenViewController.swift */,
 				9AA3298122491A69008ADB9D /* SettingsViewController.swift */,
 				317C26A8221F5F6A00B4F12A /* Assets.xcassets */,
 				3179B6BC2253E10E002FDDA5 /* AppIcon.appiconset */,
 				316D1EB92280BDA7009F0B08 /* astronaut.png */,
-				3166DB7622247DCC008C9F04 /* background.jpg */,
-				3112FDC92280980D00D1915A /* music.mp3 */,
-				317C26AA221F5F6A00B4F12A /* LaunchScreen.storyboard */,
-				9A1775A522425AC0005E3DD7 /* StartScreenViewController.swift */,
 				317C26AD221F5F6A00B4F12A /* Info.plist */,
-				317C26CF221F5FF100B4F12A /* Line.swift */,
-				31412084224B244800F00D0D /* Background.swift */,
-				D604CC772278CC0200783367 /* TickView.swift */,
+				3112FDC92280980D00D1915A /* music.mp3 */,
 				D604CC7B2278E27000783367 /* splat.mp3 */,
-				3112FDCB228098D200D1915A /* LevelTwoTutorial.swift */,
 			);
 			path = "Number Line";
 			sourceTree = "<group>";
@@ -304,18 +299,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D604CC7A2278CCAF00783367 /* LineBackgroundView.swift in Sources */,
+				316D1EBC2281D487009F0B08 /* LineBackgroundView.swift in Sources */,
 				317C26D0221F5FF100B4F12A /* Line.swift in Sources */,
 				317C26A4221F5F6900B4F12A /* ViewController.swift in Sources */,
 				9A2A0A73224E70ED006AA59F /* LevelSelectorViewController.swift in Sources */,
-				D604CC782278CC0200783367 /* TickView.swift in Sources */,
 				317C26A2221F5F6900B4F12A /* AppDelegate.swift in Sources */,
 				9AA3298222491A69008ADB9D /* SettingsViewController.swift in Sources */,
 				3112FDCC228098D200D1915A /* LevelTwoTutorial.swift in Sources */,
 				9A1775A622425AC0005E3DD7 /* StartScreenViewController.swift in Sources */,
-				31412085224B244800F00D0D /* Background.swift in Sources */,
 				310C4B8722541BCB005C0B58 /* IncorrectPopUpViewController.swift in Sources */,
 				310C4B8922541C74005C0B58 /* CorrectPopUpViewController.swift in Sources */,
+				316D1EBE2281D48F009F0B08 /* TickView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

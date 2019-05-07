@@ -11,14 +11,18 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
+    // Reference to go back to previous page
     @IBAction func ExitToStart(_ sender: Any) {
          performSegue(withIdentifier: "Submit", sender: self)
-        //self.dismiss(animated: true, completion: nil)
     }
+    
+    // Reference to the astronaut image
     @IBOutlet weak var astronaut: UIImageView!
     
+    // Reference to the question label
     @IBOutlet weak var astronautPlaceLabel: UILabel!
     
+    // Reference to the line
     @IBOutlet weak var lineRef: Line!
     
     var previousVC:UIViewController?=nil
@@ -28,65 +32,49 @@ class ViewController: UIViewController {
     var ranges=[(CGFloat(0.0),CGFloat(0.0))]
     var desiredNumber=Int.random(in: 0...5)
     var threshold=10
-    
     var exampleVar:Int=0
     var player: AVAudioPlayer?
     var howManyLevelsAreDone:Int=0
-    
     var holdingAstronaut:Bool=false
     var maxWaitingTime:Int=5
     var waitingTime:Int = 5
-    
     var mostrecentTick:UIView?=nil
-    
     var accessibleNumbers:[UIView]=[]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Make the screen accessible, and specify the question with a randomly chosen number from 0-5
         isAccessibilityElement = true 
         astronautPlaceLabel.text="Drag the astronaut to tick \(desiredNumber)" + " and click submit"
         
         // Set the background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "stars.jpg")!)
-        //previousVC?.dismiss(animated: false, completion: nil)
         
-        print("levels complete (in vc)="+howManyLevelsAreDone.description)
-        if (previousVC != nil){
-                //previousVC?.dismiss(animated: false, completion: nil)
-            //previousVCSuccess!.view.removeFromSuperview()
-            //previousVC!.view.removeFromSuperview()
-            /*previousVC?.dismiss(animated: false, completion:{
-                if (self.previousVC != nil){
-                    //self.previousVC?.dismiss(animated: false, completion: nil)
-                }
-            })*/
-            
-        }
-        
+        // If the voiceover accessible function isn't enabled, read out the question using audio kit
         if(!UIAccessibility.isVoiceOverRunning){
             let utterance = AVSpeechUtterance(string: "Drag the astronaut to tick \(desiredNumber)" + " and click submit")
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            //AVSpeechSynthesisVoice(
             utterance.rate = 0.5
             utterance.volume=5
-            
+    
             let synthesizer = AVSpeechSynthesizer()
             synthesizer.speak(utterance)
         }
-        
-        
     }
     
+    // Based on whether the player answered the question correctly, this function will direct the player to either incorrect/correct popup window
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var tryAgainVC=segue.destination as? IncorrectPopUpViewController
+        
+        // If the player answered the question incorrectly, he/she needs to try the same round again
         if(tryAgainVC != nil){
-            print("is a try again")
             tryAgainVC?.previousVCNum=desiredNumber
         }
         else{
+            // If the player answered the question correctly, he/she will play the next round
             var rightVC = segue.destination as? CorrectPopUpViewController
             if (rightVC != nil){
-                print("is correct")
                 rightVC!.parentVC=self
                 rightVC!.numLevelsComplete=self.howManyLevelsAreDone
             }
@@ -94,34 +82,25 @@ class ViewController: UIViewController {
                 print("other vc")
             }
         }
-        
-
     }
     
-    
-    
+    // Create number labels for the number line
     func initializeNumberTexts(){
-        // Find the screen width and distance between points
         let screenSize: CGRect = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let distance = lineRef.distance
-        
-        //ranges=[(100+distance,100+(2*distance)), (100+(2*distance), 100+(3*distance)), (100+(3*distance), 100+(4*distance)), (100+(4*distance), 100+(5*distance))]
         let textHeight=100
-        
         let textWidth=40
         var linerefbounds:CGRect=lineRef.bounds
         let spaceBetweenLineAndText:CGFloat=10.0
+        
         // Create 5 labels and make them accessible
         while (i < lineRef.numberOfPoints+1) {
             let xdist = (distance*CGFloat(i))
-            print("i is"+i.description+", dist= "+xdist.description+"otherdist: "+distance.description)
-            
-            
             var minXOfLine = lineRef.center.x-(linerefbounds.width/2)
             var maxYOfLine = lineRef.center.y+(linerefbounds.height/2)
-            print("line ref offset= "+minXOfLine.description)
             let label = UILabel(frame: CGRect(x: xdist+lineRef.offSetFromEdges + minXOfLine, y: maxYOfLine+spaceBetweenLineAndText, width: CGFloat(textWidth), height: CGFloat(textHeight)))
+            
             label.isAccessibilityElement = true
             label.text = String(i)
             label.font = UIFont(name: "Arial-BoldMT", size: 50)
@@ -135,51 +114,43 @@ class ViewController: UIViewController {
         }
     }
     
+    // Handle pan gesture - identify where the player drag the astronaut to
     @IBAction func handlepan(recognizer:UIPanGestureRecognizer) {
-        print("panning")
         var focusedView=UIAccessibility.focusedElement(using: UIAccessibility.AssistiveTechnologyIdentifier.notificationVoiceOver)
-        print("focused: "+focusedView.debugDescription+" at "+recognizer.view!.center.x.description)
         let translation = recognizer.translation(in:self.view)
-        //make sure to check that it's the astronaut
-        //can make a child of UIIMageView for astronaut and attempt to cast to it
+
         if let view = recognizer.view {
             let astronaut_position = astronaut.center.x
-            print("astronaut is at:" + astronaut_position.description)
-            print("offset = "+translation.x.description+" "+translation.y.description)
             
-            //test for intersections
-            var possibleViewsToIntersect:[UIView] = []//lineRef!.accessibleTicks
+            // The followings are to find intersection (while the player drag the astronaut over other objects on the screen)
+            var possibleViewsToIntersect:[UIView] = []
             
             for numlabel in accessibleNumbers{
                 possibleViewsToIntersect.append(numlabel)
             }
             
-            
             let intersectingTicks:[UIView]=lineRef!.accessibleTicks.filter{$0 != view && view.frame.intersects(CGRect(x: $0.frame.minX+lineRef.frame.minX, y: $0.frame.minY+lineRef.frame.minY, width: $0.frame.width, height: $0.frame.height))}
-            
             let intersectingNums:[UIView]=possibleViewsToIntersect.filter{$0 != view && view.frame.intersects($0.frame)}
-            
             var intersectingViews=intersectingTicks
-            
             
             for nums in intersectingNums{
                 intersectingViews.append(nums)
             }
             
-            print("num intersects="+(intersectingViews.count).description)
             for iView in intersectingViews{
                 print("Intersect="+(iView.accessibilityLabel ?? "NO ACCESS"))
             }
             
             if (intersectingViews.count==0){
                 mostrecentTick=nil
-            }else if (intersectingViews.count==1){
+            }
+            // Make sounds when the player drag the astronaut over objects
+            else if (intersectingViews.count==1){
                 if (intersectingViews[0] != mostrecentTick) {
                     mostrecentTick=intersectingViews[0]
-                    //synthesize
+                    
                     let utterance = AVSpeechUtterance(string: intersectingViews[0].accessibilityLabel ?? "")
                     utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                    //AVSpeechSynthesisVoice(
                     utterance.rate = 0.5
                     utterance.volume=5
                     
@@ -192,10 +163,9 @@ class ViewController: UIViewController {
             }else if (intersectingViews.count==2){
                 if (intersectingViews[1] != mostrecentTick) {
                     mostrecentTick=intersectingViews[1]
-                    //synthesize
+                    
                     let utterance = AVSpeechUtterance(string: intersectingViews[1].accessibilityLabel ?? "")
                     utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                    //AVSpeechSynthesisVoice(
                     utterance.rate = 0.5
                     utterance.volume=5
                     
@@ -208,37 +178,6 @@ class ViewController: UIViewController {
             }else{
                 print("more than 2 intersecting items")
             }
-            /*
-            //count is a max of 2 (tick and the number)
-            //if == 2 print number
-            if (intersectingViews[0] != mostrecentTick) {
-                if (intersectingViews.count==1){
-                    //synthesize for the 1 thing
-                        let utterance = AVSpeechUtterance(string: intersectingViews[0].accessibilityLabel ?? "")
-                        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                        //AVSpeechSynthesisVoice(
-                        utterance.rate = 0.5
-                        utterance.volume=5
-                    
-                        let synthesizer = AVSpeechSynthesizer()
-                        synthesizer.speak(utterance)
-                }
-            }
-            
-            if (intersectingViews.count==2){
-                var testIView0:TickView? = intersectingViews[0] as? TickView ?? nil
-                if(testIView0 == nil){
-                    //this is a #
-                    print("this is a #")
-                }
-                else{
-                    //this is a tick
-                    print("this is a tick")
-                }
-            }*/
-            
-            
-            
             
             if(translation.x >= -0.1 && translation.x <= 0.1 && translation.y >= -0.1 && translation.y <= 0.1 && holdingAstronaut){
                 print("splat")
@@ -264,9 +203,7 @@ class ViewController: UIViewController {
         recognizer.setTranslation(CGPoint.zero, in: self.view)
     }
     
-    
-    
-    
+    // Play drop sound when the player drops the astronaut
     func playSound() {
         guard let url = Bundle.main.url(forResource: "splat", withExtension: "mp3") else { return }
         
@@ -274,12 +211,8 @@ class ViewController: UIViewController {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
             
-            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-            
-            /* iOS 10 and earlier require the following line:
-             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
-            
+
             guard let player = player else { return }
             
             player.play()
@@ -289,59 +222,31 @@ class ViewController: UIViewController {
         }
     }
     
-    
+    // When the user clicks submit, the game will check where the astronaut is on. Based on that, the game will determine
+    // whether the player answered the question correctly or not. There are some tolerance allowed so the player can be a
+    // little bit off on the number line
     @IBAction func Submit(_ sender: Any) {
         let astronaut_positionX = astronaut.center.x
         let astronaut_positionY = astronaut.center.y
-        print("astronaut is at X:" + astronaut_positionX.description)
-        print("astronaut is at Y:" + astronaut_positionY.description)
         var linerefbounds:CGRect=lineRef.bounds
         var minXOfLine = lineRef.center.x-(linerefbounds.width/2)
         var maxYOfLine = lineRef.center.y
-    print("desiredX"+(lineRef.points[desiredNumber].bounds.minX+minXOfLine).description)
-        print("desiredY"+maxYOfLine.description)
+    
         if (astronaut_positionX >= lineRef.points[desiredNumber].bounds.minX+minXOfLine-40 && astronaut_positionX < lineRef.points[desiredNumber].bounds.maxX+minXOfLine+40
             && astronaut_positionY >= maxYOfLine-70 &&
             astronaut_positionY < maxYOfLine+100) {
-            
-            //popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow1") as! CorrectPopUpViewController
-            //popOverVC?.parentVC=self
-            //popOverVC?.numLevelsComplete=self.howManyLevelsAreDone
-            //if (popOverVC != nil){
-             //   print("pop")
-            //}
-            //self.addChild(popOverVC!)
-            //popOverVC!.view.frame = self.view.frame
-            
-            //x,
-            performSegue(withIdentifier: "toCongrats", sender: self)
-            
-            //self.view.addSubview(popOverVC!.view)
-            //popOverVC!.didMove(toParent: self)
-            //print("astronaut is in the right place!")
+                performSegue(withIdentifier: "toCongrats", sender: self)
         }
         else{
             print("astronaut is in the wrong place!")
             performSegue(withIdentifier: "toTryAgain", sender: self)
-            //let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpWindow2") as! IncorrectPopUpViewController
-            //self.addChild(popOverVC)
-            //popOverVC.view.frame = self.view.frame
-            //self.view.addSubview(popOverVC.view)
-            //popOverVC.didMove(toParent: self)
-            
         }
         
     }
     
+    // This is to check if an accessible element is focused
     override func accessibilityElementDidBecomeFocused()
     {
-        ///self.focus
-        
-        //x, ticks, lineref,question, submit, astronaut
-        
-        //for (var count=0;i<10;i++){
-            
-        //}
         print("focused")
         var focusedElement:UIView
         var accessibleTicksRef:[UIView]=lineRef.accessibleTicks
@@ -357,29 +262,5 @@ class ViewController: UIViewController {
                 break
             }
         }
-        
-        
-        
     }
-    
-    func removePopOverView(){
-        //popOverVC!.view.removeFromSuperview()
-        //popOverVC?.removeFromParent()
-        //popOverVC?.dismiss(animated: false, completion: nil)
-        
-        //let vc=UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "levelVC")
-        //let levelvc=vc as! ViewController
-        
-        //initialize stuff
-        //TODO
-        //if we have done a certain amount of levels go back to level select
-        //levelvc.howManyLevelsAreDone=self.howManyLevelsAreDone+1
-        //levelvc.previousVC=self
-        //levelvc.previousVCSuccess=self
-        
-        //self.present(levelvc, animated: true, completion: nil)
-        //self.view.removeFromSuperview()
-        //self.parent?.dismiss(animated: true, completion: nil)
-    }
-
 }

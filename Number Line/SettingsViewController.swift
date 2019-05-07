@@ -12,10 +12,12 @@ import AVFoundation
 class SettingsViewController: UIViewController {
     var player:AVAudioPlayer = AVAudioPlayer()
     
+    // Directs player back to the start menu
     @IBAction func ExitSettings(_ sender: Any) {
          performSegue(withIdentifier: "SettingsExit", sender: self)
     }
    
+    // Function to allow player to play music
     @IBAction func PlayMusic(_sender: Any) {
         do {
             let audioPath = Bundle.main.path(forResource: "music", ofType: "mp3")
@@ -28,6 +30,7 @@ class SettingsViewController: UIViewController {
         player.play()
     }
     
+    // Function to allow player to stop the music
     @IBAction func StopMusic(_sender: Any) {
         do {
             let audioPath = Bundle.main.path(forResource: "music", ofType: "mp3")

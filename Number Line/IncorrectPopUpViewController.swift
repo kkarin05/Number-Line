@@ -22,20 +22,21 @@ class IncorrectPopUpViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    // Direct the player back to the same round so the player can retry the game
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var levelVC:ViewController=segue.destination as! ViewController
         
         levelVC.desiredNumber=previousVCNum
     }
 
+    // Allows the player to go back to previous page
     @IBAction func closePopUp(_ sender: Any) {
-        //self.removeAnimate()
         performSegue(withIdentifier: "tryAgainToLevel", sender: self)
     }
 
+    // Helper method - show the popup window animation
     func showAnimate()
     {
         self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
@@ -46,6 +47,7 @@ class IncorrectPopUpViewController: UIViewController {
         });
     }
 
+    // Currently not used, may need for future reference
     func removeAnimate()
     {
         UIView.animate(withDuration: 0.25, animations: {
