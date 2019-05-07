@@ -244,6 +244,27 @@ class ViewController: UIViewController {
         
     }
     
+    // May need for future reference
+    func removePopOverView(){
+        //popOverVC!.view.removeFromSuperview()
+        //popOverVC?.removeFromParent()
+        //popOverVC?.dismiss(animated: false, completion: nil)
+        
+        //let vc=UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "levelVC")
+        //let levelvc=vc as! ViewController
+        
+        //initialize stuff
+        //TODO
+        //if we have done a certain amount of levels go back to level select
+        //levelvc.howManyLevelsAreDone=self.howManyLevelsAreDone+1
+        //levelvc.previousVC=self
+        //levelvc.previousVCSuccess=self
+        
+        //self.present(levelvc, animated: true, completion: nil)
+        //self.view.removeFromSuperview()
+        //self.parent?.dismiss(animated: true, completion: nil)
+    }
+    
     // This is to check if an accessible element is focused
     override func accessibilityElementDidBecomeFocused()
     {
