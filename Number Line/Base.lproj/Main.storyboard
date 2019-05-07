@@ -141,7 +141,7 @@
         <scene sceneID="2Pp-8X-SGq">
             <objects>
                 <viewController id="Ibz-k2-5jT" customClass="StartScreenViewController" customModule="Number_Line" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="LmE-GF-WLi">
+                    <view key="view" contentMode="scaleToFill" id="LmE-GF-WLi">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -173,7 +173,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accessbility Number Line Game" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lh7-E6-lKi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accessible Number Line Game" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lh7-E6-lKi">
                                 <rect key="frame" x="115" y="163" width="794" height="179.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="75"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -602,7 +602,7 @@
         <image name="astronaut.png" width="77" height="87"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eCQ-Ig-mMe"/>
+        <segue reference="czd-BC-cJT"/>
         <segue reference="BKW-2W-pRu"/>
         <segue reference="j8u-LN-fhE"/>
     </inferredMetricsTieBreakers>
